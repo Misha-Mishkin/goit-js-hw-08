@@ -12,8 +12,8 @@ form.addEventListener('submit', onButtonClick);
 updateForm();
 
 function onTextAreaInput(evt) {
-    formData.email = form.elements.email.value;
-    formData.message = form.elements.message.value;
+    formData.email = form.email.value;
+    formData.message = form.message.value;
     localStorage.setItem(KEY, JSON.stringify(formData));
 }
 
@@ -21,9 +21,9 @@ function onButtonClick(evt) {
     evt.preventDefault();
 
     const formDataToSend = new FormData(evt.currentTarget);
-  formDataToSend.forEach((value, name) => {
+    formDataToSend.forEach((value, name) => {
     formData[name] = value;
-  });
+    });
 
     evt.currentTarget.reset();
 
@@ -34,10 +34,12 @@ function updateForm() {
     const savedMessage = localStorage.getItem(KEY);
 
     if (savedMessage) {
-        const { email, message } = JSON.parse(savedData);
+        const { email, message } = JSON.parse(savedMessage);
     form.email.value = email;
     form.message.value = message;
     formData.email = email;
     formData.message = message;
     }
+  
+  console.log(savedMessage);
 };
